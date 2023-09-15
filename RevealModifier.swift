@@ -47,7 +47,6 @@ struct RevealModifier: ViewModifier {
         trailingView
           .frame(maxHeight: .infinity)
           .foregroundColor(.white)
-          .background(Color.red)
           .readSize(onChange: { size in
             self.rightRevealViewWidth = size.width
           })
@@ -79,7 +78,6 @@ struct RevealModifier: ViewModifier {
         .gesture(
           DragGesture(minimumDistance: 15, coordinateSpace: .local)
             .onChanged { value in
-              print(value)
               // Cancel any pending work items
               resetOffsetWorkItem?.cancel()
               
@@ -116,13 +114,13 @@ struct RevealModifier: ViewModifier {
             }
         )
     }
-    .background {
-      if (offset >= 0) {
-        Color.blue
-      } else if (offset <= 0) {
-        Color.red
-      }
-    }
+//    .background {
+//      if (offset >= 0) {
+//        Color.blue
+//      } else if (offset <= 0) {
+//        Color.red
+//      }
+//    }
     .clipped(antialiased: true)
     .cornerRadius(3.0, antialiased: true)
   }

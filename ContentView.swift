@@ -24,6 +24,7 @@ struct ContentView: View {
               }
                 .font(.system(size: 12))
                 .padding(10)
+                .background(.blue)
             )
           })
       }
