@@ -107,10 +107,10 @@ struct RevealModifier: ViewModifier {
               if value.translation.direction == .vertical {
                 offsetAnimated = 0
               } else {
-                if (value.translation.width >= swipeContentWidth) {
+                if (value.translation.width >= swipeContentWidth) && leadingAvailable {
                   offsetAnimated = swipeContentWidth
                   scheduleResetOffset()
-                } else if (value.translation.width <= -swipeContentWidth) {
+                } else if (value.translation.width <= -swipeContentWidth) && trailingAvailable {
                   offsetAnimated = -swipeContentWidth
                   scheduleResetOffset()
                 } else {
