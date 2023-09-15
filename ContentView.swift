@@ -26,7 +26,9 @@ struct ContentView: View {
                 .padding(10)
                 .background(.blue)
             )
-          })
+          },
+                   trailingAvailable: true
+          )
       }
     }
   }

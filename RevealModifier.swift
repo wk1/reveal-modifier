@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct RevealModifier: ViewModifier {
-  var leadingView: AnyView
-  var trailingView: AnyView
+  let leadingView: AnyView
+  let leadingAvailable: Bool
+  let trailingView: AnyView
+  let trailingAvailable: Bool
   
   @State private var offset: CGFloat = 0.0
   @State private var offsetAnimated: CGFloat = 0.0
@@ -19,10 +21,11 @@ struct RevealModifier: ViewModifier {
   @State private var rightRevealViewWidth: CGFloat = 60.0
   @State private var resetOffsetWorkItem: DispatchWorkItem?
   
-  init(leading: AnyView, trailing: AnyView) {
+  init(leading: AnyView, leadingAvailable: Bool = false, trailing: AnyView, trailingAvailable: Bool = false) {
     self.leadingView = leading
+    self.leadingAvailable = leadingAvailable
     self.trailingView = trailing
-    print("Modifier initiated")
+    self.trailingAvailable = trailingAvailable
   }
   
   var calcOffset: CGFloat {
@@ -39,6 +42,9 @@ struct RevealModifier: ViewModifier {
   func body(content: Content) -> some View {
     
     let swipeContentWidth = calcOffset >= 0 ? leftRevealViewWidth : rightRevealViewWidth
+    
+    let _ = print("Leading set? \(leadingAvailable)")
+    let _ = print("Trailing set? \(trailingAvailable)")
     
     ZStack {
       // Trailing View
@@ -114,13 +120,13 @@ struct RevealModifier: ViewModifier {
             }
         )
     }
-//    .background {
-//      if (offset >= 0) {
-//        Color.blue
-//      } else if (offset <= 0) {
-//        Color.red
-//      }
-//    }
+    //    .background {
+    //      if (offset >= 0) {
+    //        Color.blue
+    //      } else if (offset <= 0) {
+    //        Color.red
+    //      }
+    //    }
     .clipped(antialiased: true)
     .cornerRadius(3.0, antialiased: true)
   }
@@ -129,8 +135,10 @@ struct RevealModifier: ViewModifier {
 extension View {
   func reveal(
     @ViewBuilder leading: () -> AnyView = { AnyView(EmptyView()) },
-    @ViewBuilder trailing: () -> AnyView = { AnyView(EmptyView()) }
+    leadingAvailable: Bool = false,
+    @ViewBuilder trailing: () -> AnyView = { AnyView(EmptyView()) },
+    trailingAvailable: Bool = false
   ) -> some View {
-    self.modifier(RevealModifier(leading: leading(), trailing: trailing()))
+    self.modifier(RevealModifier(leading: leading(), leadingAvailable: leadingAvailable, trailing: trailing(), trailingAvailable: trailingAvailable))
   }
 }
