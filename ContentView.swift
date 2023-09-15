@@ -10,6 +10,22 @@ struct ContentView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .background(.yellow)
           .listRowBackground(Color.clear)
+          .reveal( trailing:  {
+            AnyView(
+              VStack(spacing: 5) {
+                HStack {
+                  Image(systemName: "stopwatch")
+                  Text("09:23")
+                }
+                HStack {
+                  Image(systemName: "stopwatch.fill")
+                  Text("13:54")
+                }
+              }
+                .font(.system(size: 12))
+                .padding(10)
+            )
+          })
       }
     }
   }
