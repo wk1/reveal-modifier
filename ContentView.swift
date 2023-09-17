@@ -10,36 +10,45 @@ struct ContentView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .background(.yellow)
           .listRowBackground(Color.clear)
-          .reveal( 
+          .reveal(
             leading: {
-              AnyView (
-                Image(systemName: "trash")
-                  .padding()
-                  .font(.system(size: 12))
-                  .background(.red)
-              )
+              AnyView (DeleteView())
             },
             leadingAvailable: true,
+            leadingBackgroundColor: .pink,
             trailing:  {
-              AnyView(
-                VStack(spacing: 5) {
-                  HStack {
-                    Image(systemName: "stopwatch")
-                    Text("09:23")
-                  }
-                  HStack {
-                    Image(systemName: "stopwatch.fill")
-                    Text("13:54")
-                  }
-                }
-                  .font(.system(size: 12))
-                  .padding(10)
-                  .background(.blue)
-              )
+              AnyView(TimeRangeView())
             },
             trailingAvailable: true
           )
       }
     }
+  }
+}
+
+struct DeleteView: View {
+  var body: some View {
+    Image(systemName: "trash")
+      .padding()
+      .font(.system(size: 12, weight: .bold))
+      .foregroundColor(.white)
+  }
+}
+
+struct TimeRangeView: View {
+  var body: some View {
+    VStack(spacing: 5) {
+      HStack {
+        Image(systemName: "stopwatch")
+        Text("09:23")
+      }
+      HStack {
+        Image(systemName: "stopwatch.fill")
+        Text("13:54")
+      }
+    }
+    .font(.system(size: 12, weight: .bold))
+    .padding(10)
+    .foregroundColor(.primary)
   }
 }
