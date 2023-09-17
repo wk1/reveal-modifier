@@ -88,3 +88,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/weltraumkojote.xcuserdatad/UserInterfaceState.xcuserstate
+.swiftpm/xcode/package.xcworkspace/xcuserdata/weltraumkojote.xcuserdatad/UserInterfaceState.xcuserstate
