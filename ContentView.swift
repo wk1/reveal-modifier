@@ -12,34 +12,43 @@ struct ContentView: View {
           .listRowBackground(Color.clear)
           .reveal(
             leading: {
-              AnyView (
-                Image(systemName: "trash")
-                  .padding()
-                  .font(.system(size: 12))
-              )
+              AnyView (DeleteView())
             },
             leadingAvailable: true,
             leadingBackgroundColor: .pink,
             trailing:  {
-              AnyView(
-                VStack(spacing: 5) {
-                  HStack {
-                    Image(systemName: "stopwatch")
-                    Text("09:23")
-                  }
-                  HStack {
-                    Image(systemName: "stopwatch.fill")
-                    Text("13:54")
-                  }
-                }
-                  .font(.system(size: 12))
-                  .padding(10)
-              )
+              AnyView(TimeRangeView())
             },
-            trailingAvailable: true,
-            trailingBackgroundColor: .brown
+            trailingAvailable: true
           )
       }
     }
+  }
+}
+
+struct DeleteView: View {
+  var body: some View {
+    Image(systemName: "trash")
+      .padding()
+      .font(.system(size: 12, weight: .bold))
+      .foregroundColor(.white)
+  }
+}
+
+struct TimeRangeView: View {
+  var body: some View {
+    VStack(spacing: 5) {
+      HStack {
+        Image(systemName: "stopwatch")
+        Text("09:23")
+      }
+      HStack {
+        Image(systemName: "stopwatch.fill")
+        Text("13:54")
+      }
+    }
+    .font(.system(size: 12, weight: .bold))
+    .padding(10)
+    .foregroundColor(.primary)
   }
 }
