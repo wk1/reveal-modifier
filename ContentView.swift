@@ -10,16 +10,16 @@ struct ContentView: View {
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .background(.yellow)
           .listRowBackground(Color.clear)
-          .reveal( 
+          .reveal(
             leading: {
               AnyView (
                 Image(systemName: "trash")
                   .padding()
                   .font(.system(size: 12))
-                  .background(.red)
               )
             },
             leadingAvailable: true,
+            leadingBackgroundColor: .pink,
             trailing:  {
               AnyView(
                 VStack(spacing: 5) {
@@ -34,10 +34,10 @@ struct ContentView: View {
                 }
                   .font(.system(size: 12))
                   .padding(10)
-                  .background(.blue)
               )
             },
-            trailingAvailable: true
+            trailingAvailable: true,
+            trailingBackgroundColor: .brown
           )
       }
     }

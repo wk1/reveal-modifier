@@ -10,8 +10,10 @@ import SwiftUI
 struct RevealModifier: ViewModifier {
   let leadingView: AnyView
   let leadingAvailable: Bool
+  let leadingBackgroundColor: Color
   let trailingView: AnyView
   let trailingAvailable: Bool
+  let trailingBackgroundColor: Color
   
   @State private var offset: CGFloat = 0.0
   @State private var offsetAnimated: CGFloat = 0.0
@@ -21,11 +23,13 @@ struct RevealModifier: ViewModifier {
   @State private var rightRevealViewWidth: CGFloat = 60.0
   @State private var resetOffsetWorkItem: DispatchWorkItem?
   
-  init(leading: AnyView, leadingAvailable: Bool = false, trailing: AnyView, trailingAvailable: Bool = false) {
+  init(leading: AnyView, leadingAvailable: Bool = false, leadingBackgroundColor: Color = .clear, trailing: AnyView, trailingAvailable: Bool = false, trailingBackgroundColor: Color = .clear) {
     self.leadingView = leading
     self.leadingAvailable = leadingAvailable
+    self.leadingBackgroundColor = leadingBackgroundColor
     self.trailingView = trailing
     self.trailingAvailable = trailingAvailable
+    self.trailingBackgroundColor = trailingBackgroundColor
   }
   
   var calcOffset: CGFloat {
@@ -120,13 +124,13 @@ struct RevealModifier: ViewModifier {
             }
         )
     }
-    //    .background {
-    //      if (offset >= 0) {
-    //        Color.blue
-    //      } else if (offset <= 0) {
-    //        Color.red
-    //      }
-    //    }
+    .background {
+      if (offset >= 0) {
+        leadingBackgroundColor
+      } else if (offset <= 0) {
+        trailingBackgroundColor
+      }
+    }
     .clipped(antialiased: true)
     .cornerRadius(3.0, antialiased: true)
   }
@@ -136,9 +140,11 @@ extension View {
   func reveal(
     @ViewBuilder leading: () -> AnyView = { AnyView(EmptyView()) },
     leadingAvailable: Bool = false,
+    leadingBackgroundColor: Color = .clear,
     @ViewBuilder trailing: () -> AnyView = { AnyView(EmptyView()) },
-    trailingAvailable: Bool = false
+    trailingAvailable: Bool = false,
+    trailingBackgroundColor: Color = .clear
   ) -> some View {
-    self.modifier(RevealModifier(leading: leading(), leadingAvailable: leadingAvailable, trailing: trailing(), trailingAvailable: trailingAvailable))
+    self.modifier(RevealModifier(leading: leading(), leadingAvailable: leadingAvailable, leadingBackgroundColor: leadingBackgroundColor, trailing: trailing(), trailingAvailable: trailingAvailable, trailingBackgroundColor: trailingBackgroundColor))
   }
 }
